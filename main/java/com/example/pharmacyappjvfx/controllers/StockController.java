@@ -426,7 +426,7 @@ public class StockController {
 
     @FXML
     public void switchToAuth() {
-        sceneSwitcher.switchTo("/views/authentication.fxml", false);
+        sceneSwitcher.switchTo("/views/authentication.fxml", true);
     }
     @FXML
     public void switchToMedicines(){

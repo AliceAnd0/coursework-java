@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pharmacyappjvfx.controllers.SalesController">
+    <!-- Навигация -->
+    <HBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10">
+        <Button text="Об авторе" onAction="#switchToAuthor"/>
+        <Button text="Статистика" onAction="#switchToStatistics"/>
+    </HBox>
+
+    <HBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10">
+        <Label fx:id="usernameIndicator" />
+        <Label fx:id="userRoleIndicator" />
+        <Button text="Выйти" onAction="#switchToAuth"/>
+    </HBox>
+
+    <HBox spacing="10" AnchorPane.topAnchor="50" AnchorPane.leftAnchor="10">
+        <Button text="Лекарства" onAction="#switchToMedicines"/>
+        <Button text="Производители" onAction="#switchToManufacturers"/>
+        <Button text="Аптеки" onAction="#switchToPharmacies"/>
+        <Button text="Наличие" onAction="#switchToStock"/>
+        <Button text="Продажи"/>
+        <Button text="Типы препаратов" onAction="#switchToTypes"/>
+    </HBox>
+
+    <!-- Поля для фильтрации -->
+    <HBox spacing="10" AnchorPane.topAnchor="90" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+        <TextField fx:id="searchId" promptText="ID продажи" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <ComboBox fx:id="searchComboBoxPharmacy" promptText="Аптека" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <ComboBox fx:id="searchComboBoxMedicine" promptText="Лекарство" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <DatePicker fx:id="searchDatePicker" promptText="Дата продажи" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <TextField fx:id="searchAmount" promptText="Количество" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <TextField fx:id="searchSum" promptText="Сумма" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10"/>
+        <Button text="Поиск" onAction="#filterSearch"/>
+        <Button text="Очистить" onAction="#clearFilter"/>
+    </HBox>
+
+    <!-- Таблица -->
+    <TableView fx:id="salesTable" AnchorPane.topAnchor="140" AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="40" AnchorPane.rightAnchor="350">
+        <columns>
+            <TableColumn text="ID продажи" fx:id="idColumn" />
+            <TableColumn text="Аптека" fx:id="pharmacyColumn" />
+            <TableColumn text="ID Лекарства" fx:id="medicineIdColumn" />
+            <TableColumn text="Название Лекарства" fx:id="medicineNameColumn" />
+            <TableColumn text="Дата продажи" fx:id="dateColumn" />
+            <TableColumn text="Количество" fx:id="amountColumn" />
+            <TableColumn text="Сумма" fx:id="sumColumn" />
+        </columns>
+    </TableView>
+
+    <!-- Количество записей -->
+    <Label fx:id="rowCount" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" />
+
+    <!-- Форма редактирования -->
+    <VBox fx:id="vBoxAdminForm" spacing="10" AnchorPane.topAnchor="140" AnchorPane.rightAnchor="10">
+
+        <Label fx:id="actionGuide" text="Выберите запись для изменения/удаления" style="-fx-font-weight: bold;"/>
+
+        <HBox spacing="10">
+            <Button text="Добавить" onAction="#handleAddAction"/>
+            <Button text="Редактировать" onAction="#fillFormForEdit"/>
+            <Button text="Удалить" onAction="#showDeleteConfirmation"/>
+        </HBox>
+
+        <Label fx:id="actionFormLabel" text="Форма для добавления и редактирования продажи" style="-fx-font-weight: bold;" />
+
+        <GridPane vgap="10" hgap="10" alignment="TOP_LEFT">
+            <Label text="Аптека:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <ComboBox fx:id="pharmacyFormComboBox" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+            <Label text="Лекарство:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <ComboBox fx:id="medicineFormComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+            <Label text="Дата продажи:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+            <DatePicker fx:id="saleDateFormPicker" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+            <Label text="Количество:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+            <TextField fx:id="amountField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+            <Label text="Сумма: " GridPane.rowIndex="5" GridPane.columnIndex="0" />
+            <Label fx:id="sumLabel" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            <!-- <TextField fx:id="sumField" GridPane.rowIndex="5" GridPane.columnIndex="1" /> -->
+        </GridPane>
+
+        <HBox spacing="10">
+            <Button text="Очистить" onAction="#clearForm" />
+            <Region />
+            <Button text="Готово" onAction="#saveSale" />
+        </HBox>
+    </VBox>
+</AnchorPane>
+
